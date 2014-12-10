@@ -16,6 +16,8 @@ thetardot = 0;
 mup = 10;
 mud = 10;
 
+disturbance = 10;
+
 P = J*wn^2;
 D = J*2*zeta*wn;
 
