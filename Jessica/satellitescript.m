@@ -20,7 +20,7 @@ mud = 10;
 T = 0.01;
 N = 1/T;
 tspan=[0:T:N*T];
-sim('E205_Lab4_satellitesim',tspan)
+sim('satellitesim',tspan)
 plot(tout,yout)
 legend('theta','P','D','thetam','thetadot','Jd^2\theta/dt^2')
 
