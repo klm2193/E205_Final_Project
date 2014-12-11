@@ -1,5 +1,6 @@
 % final project
-
+% due 5pm wednesday
+% no more than 3 or 5 page report -- gui is important
 clear
 clc
 
@@ -23,7 +24,7 @@ P = J*wn^2;
 D = J*2*zeta*wn;
 
 % run the simulation
-tspan = [0:T:1];
+tspan = [0:T:100];
 [t,x,y] = sim('satelliteSim', tspan);
 plot(t,y(:,1),t,y(:,2),t,y(:,3),t,y(:,5),t,y(:,6))
 title('PD Control System (\mu_P = 10, \mu_D = 10)')
