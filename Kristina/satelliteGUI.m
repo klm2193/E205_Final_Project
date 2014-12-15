@@ -102,6 +102,32 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+% define constants
+r = 1; % rad
+zeta = 1;
+wn = 10; % rad/s
+J = 2;
+Jhat = 1;
+thetar = r;
+T = 0.01; % s
+N = 1/T;
+thetardot = 0;
+mup = 10;
+mud = 10;
+
+I = 20;
+disturbance = 10000;
+
+P = J*wn^2;
+D = J*2*zeta*wn;
+
+% run the simulation
+tspan = [0:T:100];
+[t,x,y] = sim('satelliteSim', tspan);
+plot(t,y(:,1),t,y(:,2),t,y(:,3),t,y(:,5),t,y(:,6))
+title('PD Control System (\mu_P = 10, \mu_D = 10)')
+xlabel('time (s)')
+legend('\theta', 'P', 'D','\theta dot', 'u = J\theta double dot')
 
 
 function disturbance_Callback(hObject, eventdata, handles)
