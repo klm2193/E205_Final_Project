@@ -115,14 +115,30 @@ thetardot = 0;
 mup = 10;
 mud = 10;
 
-I = 20;
-disturbance = 10000;
-
 P = J*wn^2;
 D = J*2*zeta*wn;
 
+I = get(handles.I, 'String');
+I = str2double(I);
+disturbance = get(handles.disturbance, 'String');
+disturbance = str2double(disturbance);
+
+% send variables to workspace
+assignin('base', 'I', I);
+assignin('base', 'disturbance', disturbance);
+assignin('base', 'zeta', zeta);
+assignin('base', 'wn', wn);
+assignin('base', 'J', J);
+assignin('base', 'Jhat', Jhat);
+assignin('base', 'thetar', thetar);
+assignin('base', 'thetardot', thetardot);
+assignin('base', 'mup', mup);
+assignin('base', 'mud', mud);
+assignin('base', 'P', P);
+assignin('base', 'D', D);
+
 % run the simulation
-tspan = [0:T:100];
+tspan = [0:T:10];
 [t,x,y] = sim('satelliteSim', tspan);
 plot(t,y(:,1),t,y(:,2),t,y(:,3),t,y(:,5),t,y(:,6))
 title('PD Control System (\mu_P = 10, \mu_D = 10)')
