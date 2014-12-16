@@ -102,6 +102,9 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
+% clear plots
+cla;
+
 % define constants
 r = 1; % rad
 zeta = 1;
@@ -140,6 +143,7 @@ assignin('base', 'D', D);
 % run the simulation
 tspan = [0:T:10];
 [t,x,y] = sim('satelliteSim', tspan);
+axes(handles.axes1);
 plot(t,y(:,1),t,y(:,2),t,y(:,3),t,y(:,5),t,y(:,6))
 title('PD Control System (\mu_P = 10, \mu_D = 10)')
 xlabel('time (s)')
