@@ -22,7 +22,7 @@ function varargout = finalproj_GUI(varargin)
 
 % Edit the above text to modify the response to help finalproj_GUI
 
-% Last Modified by GUIDE v2.5 14-Dec-2014 23:44:27
+% Last Modified by GUIDE v2.5 16-Dec-2014 16:23:37
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -69,6 +69,7 @@ title('Simulation results')
 % set range of values for the table
 handles.tableData=zeros(20,5);
 set(handles.uitable1,'Data',handles.tableData);
+guidata(hObject, handles);
 
 
 % UIWAIT makes finalproj_GUI wait for user response (see UIRESUME)
@@ -87,18 +88,18 @@ varargout{1} = handles.output;
 
 
 
-function edit1_Callback(hObject, eventdata, handles)
-% hObject    handle to edit1 (see GCBO)
+function intVal_Callback(hObject, eventdata, handles)
+% hObject    handle to intVal (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit1 as text
-%        str2double(get(hObject,'String')) returns contents of edit1 as a double
+% Hints: get(hObject,'String') returns contents of intVal as text
+%        str2double(get(hObject,'String')) returns contents of intVal as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit1_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit1 (see GCBO)
+function intVal_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to intVal (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -110,18 +111,18 @@ end
 
 
 
-function edit2_Callback(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
+function distVal_Callback(hObject, eventdata, handles)
+% hObject    handle to distVal (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit2 as text
-%        str2double(get(hObject,'String')) returns contents of edit2 as a double
+% Hints: get(hObject,'String') returns contents of distVal as text
+%        str2double(get(hObject,'String')) returns contents of distVal as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit2_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit2 (see GCBO)
+function distVal_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to distVal (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -133,18 +134,18 @@ end
 
 
 
-function edit3_Callback(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
+function mu_P_Callback(hObject, eventdata, handles)
+% hObject    handle to mu_P (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit3 as text
-%        str2double(get(hObject,'String')) returns contents of edit3 as a double
+% Hints: get(hObject,'String') returns contents of mu_P as text
+%        str2double(get(hObject,'String')) returns contents of mu_P as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit3_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit3 (see GCBO)
+function mu_P_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to mu_P (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -156,18 +157,18 @@ end
 
 
 
-function edit4_Callback(hObject, eventdata, handles)
-% hObject    handle to edit4 (see GCBO)
+function mu_D_Callback(hObject, eventdata, handles)
+% hObject    handle to mu_D (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
 
-% Hints: get(hObject,'String') returns contents of edit4 as text
-%        str2double(get(hObject,'String')) returns contents of edit4 as a double
+% Hints: get(hObject,'String') returns contents of mu_D as text
+%        str2double(get(hObject,'String')) returns contents of mu_D as a double
 
 
 % --- Executes during object creation, after setting all properties.
-function edit4_CreateFcn(hObject, eventdata, handles)
-% hObject    handle to edit4 (see GCBO)
+function mu_D_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to mu_D (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    empty - handles not created until after all CreateFcns called
 
@@ -183,6 +184,22 @@ function pushbutton1_Callback(hObject, eventdata, handles)
 % hObject    handle to pushbutton1 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
 % handles    structure with handles and user data (see GUIDATA)
+
+% USER INPUT VALUES
+intVal=get(handles.intVal,'String');
+intVal=str2double(intVal);
+distVal=get(handles.distVal,'String');
+distVal=str2double(distVal);
+mu_P=get(handles.mu_P,'String');
+mu_P=str2double(mu_P);
+mu_D=get(handles.mu_D,'String');
+mu_D=str2double(mu_D);
+
+
+assignin('base','intVal',intVal);
+assignin('base','distValue',distVal);
+assignin('base','mu_D',mu_D);
+assignin('base','mu_P',mu_P);
 
 % GIVEN VALUES
 r = 1;   %rad
@@ -203,11 +220,39 @@ assignin('base','Jhat',Jhat);
 
 T = 0.01;
 N = 1/T;
-tspan=[0:T:N*T];
+tspan=[0:T:simtime];
 sim('satellitesim',tspan)
 
 axes(handles.axes1)
 plot(tout,yout(:,1), tout,yout(:,2), tout,yout(:,3),...
-    tout,yout(:,4), tout,yout(:,5), tout,yout(:,6))
-legend('theta','P','D','thetam','thetadot','Jd^2\theta/dt^2')
+   tout,yout(:,5), tout,yout(:,6), tout,yout(:,10))
+legend('theta','P','D','thetadot','Jd^2\theta/dt^2','disturbance')
+grid on
 
+y= yout(:,1);
+ym= yout(:,4);
+ydot= yout(:,5);
+ymdot=yout(:,7);
+u= yout(:,6);
+x1= y-ym;
+% x2=ydot-ymdot;
+x2=yout(:,9);
+I=0;
+for i=1:length(yout)
+    k = T*(x1(i)^2 +x2(i)^2 +u(i)^2/100);
+    I = I+k;
+end
+
+% add current result at top of output table contents
+handles.tableData= [intVal distVal mu_P mu_D I;...
+    handles.tableData(1:19,:)];
+set(handles.uitable1,'Data',handles.tableData);
+
+guidata(hObject, handles);
+
+
+% --------------------------------------------------------------------
+function Untitled_1_Callback(hObject, eventdata, handles)
+% hObject    handle to Untitled_1 (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
