@@ -17,11 +17,14 @@ thetardot = 0;
 mup = 10;
 mud = 10;
 
+I = 0;
+disturbance = 1;
+
 P = J*wn^2;
 D = J*2*zeta*wn;
 
 % run the simulation
-tspan = [0:T:100];
+tspan = [0:T:10];
 [t,x,y] = sim('satelliteSim', tspan);
 plot(t,y(:,1),t,y(:,2),t,y(:,3),t,y(:,5),t,y(:,6))
 title('PD Control System (\mu_P = 10, \mu_D = 10)')
