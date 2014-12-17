@@ -64,7 +64,8 @@ xlabel('Time (s)')
 title('Simulation results')
 
 % LOAD IN BG INFO AND EQN
-% axes(handles.axes2)
+axes(handles.axes2)
+imshow('Capture.jpg')
 
 % set range of values for the table
 handles.tableData=zeros(20,5);
@@ -231,7 +232,9 @@ sim('satellitesim',tspan)
 axes(handles.axes1)
 plot(tout,yout(:,1), tout,yout(:,2), tout,yout(:,3),...
    tout,yout(:,5), tout,yout(:,6), tout,yout(:,10))
-legend('theta','P','D','thetadot','Jd^2\theta/dt^2','disturbance')
+legend('\theta','P','D','thetadot','Jd^2\theta/dt^2','disturbance')
+xlabel('Time (s)')
+title('Simulation results')
 grid on
 
 y= yout(:,1);
