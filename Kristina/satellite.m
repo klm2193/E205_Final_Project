@@ -14,11 +14,11 @@ thetar = r;
 T = 0.01; % s
 N = 1/T;
 thetardot = 0;
-mup = 10;
-mud = 10;
+mup = 0;%10;
+mud = 0;%10;
 
 I = 0;
-disturbance = 1;
+disturbance = 0;%1;
 
 P = J*wn^2;
 D = J*2*zeta*wn;

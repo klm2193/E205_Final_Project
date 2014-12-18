@@ -141,7 +141,7 @@ assignin('base', 'P', P);
 assignin('base', 'D', D);
 
 % run the simulation
-tspan = [0:T:10];
+tspan = [0:T:100];
 [t,x,y] = sim('satelliteSim', tspan);
 axes(handles.axes1);
 plot(t,y(:,1),t,y(:,2),t,y(:,3),t,y(:,5),t,y(:,6))
